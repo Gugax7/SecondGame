@@ -1,6 +1,7 @@
 package main;
 
 import entity.Player;
+import tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,14 +11,15 @@ public class GamePanel extends JPanel implements Runnable {
     final int originalTileSize = 16; // 16x16 tile -> player/ enemy/npc
     final int scale = 3; // to not be small for my big monitor B) yes i have and 1360 : 720 monitor
     public final int tileSize = originalTileSize*scale; // here we are just turning reality last comments.
-    final int maxScreenCol = 16; // (768 pixels) quantity of column tiles per screen
-    final int maxScreenRow = 12; // (576 pixels) quantity of row tiles per screen
+    public final int maxScreenCol = 16; // (768 pixels) quantity of column tiles per screen
+    public final int maxScreenRow = 12; // (576 pixels) quantity of row tiles per screen
     final int screenWidth = maxScreenCol * tileSize;
     final int screenHeight = maxScreenRow * tileSize;
     int FPS = 60;
     Thread gameThread;
     KeyHandler keyHandler = new KeyHandler();
     Player player = new Player(this,keyHandler);
+    TileManager tileManager = new TileManager(this);
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth,screenHeight));
@@ -77,7 +79,7 @@ public class GamePanel extends JPanel implements Runnable {
                 threadCounter++;
             }
             if(timer >= 1000000000){
-                System.out.println("FPS: " + (threadCounter));
+                //System.out.println("FPS: " + (threadCounter));
                 threadCounter = 0;
                 timer = 0;
 
@@ -90,6 +92,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;//Graphics2D its a class that extends Graphics, and allows to control better geometry and coordinates
+        tileManager.draw(g2);
         player.draw(g2);
         g2.dispose(); // dispose of this graphics context and release any system resources that it is using
     }

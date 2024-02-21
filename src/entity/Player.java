@@ -49,21 +49,21 @@ public class Player extends Entity {
         }
     }
     public void update() {
-        if(keyHandler.rightPressed == true || keyHandler.upPressed == true || keyHandler.leftPressed == true || keyHandler.downPressed== true) {
+        if(keyHandler.rightPressed||keyHandler.upPressed|| keyHandler.leftPressed||keyHandler.downPressed) {
           movement = true;
-            if (keyHandler.upPressed == true) {
+            if (keyHandler.upPressed) {
                 y -= speed;
                 direction = "up";
             }
-            if (keyHandler.downPressed == true) {
+            if (keyHandler.downPressed) {
                 y += speed;
                 direction = "down";
             }
-            if (keyHandler.leftPressed == true) {
+            if (keyHandler.leftPressed) {
                 x -= speed;
                 direction = "left";
             }
-            if (keyHandler.rightPressed == true) {
+            if (keyHandler.rightPressed) {
                 x += speed;
                 direction = "right";
             }
@@ -77,14 +77,12 @@ public class Player extends Entity {
                 spriteCounter = 0;
             }
         }
-        if(keyHandler.downPressed== false && keyHandler.leftPressed==false && !keyHandler.upPressed &&  !keyHandler.rightPressed){
+        if(!keyHandler.downPressed && !keyHandler.leftPressed && !keyHandler.upPressed &&  !keyHandler.rightPressed){
             movement = false;
 
         }
     }
     public void draw(Graphics2D g2){
-       // g2.setColor(Color.white);
-       // g2.fillOval(x,y,gamePanel.tileSize,gamePanel.tileSize);
         BufferedImage image = null;
         switch (direction){
             case "up":
